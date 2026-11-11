@@ -1,13 +1,13 @@
 # Ghi chú phân tích · Day 04
 
-Họ và tên:
-MSSV:
+Họ và tên: Trần Thanh Long
+MSSV: 2A202603674
 
 ## 1. Case được chọn
 
 - ID case:
-- Câu trả lời của agent:
-- Điểm ở lần chạy 1:
+- Câu trả lời của agent: 
+- Điểm ở lần chạy 1: 
 
 ## 2. Bằng chứng trong trace
 
