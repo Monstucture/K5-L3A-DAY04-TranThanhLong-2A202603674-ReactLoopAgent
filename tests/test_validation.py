@@ -41,5 +41,23 @@ class EvidenceGateTests(unittest.TestCase):
         fake = FakeProvider([tool_call('1', 'get_incident_details', '{"provider":"github","incident_id":"missing"}'), final('Không tìm được incident')])
         self.assertEqual(run_agent('x', fake, StatusTools())['status'], 'completed')
 
+
+class FollowUpGateTests(unittest.TestCase):
+    def test_linked_incident_must_be_read_once(self):
+        # h02n9572mx9y's latest update links to xr3myzj7ms51 in the snapshot.
+        fake = FakeProvider([tool_call('1', 'get_incident_details', '{"provider":"github","incident_id":"h02n9572mx9y"}'),
+                             final('Chưa theo liên kết.'),
+                             tool_call('2', 'get_incident_details', '{"provider":"github","incident_id":"xr3myzj7ms51"}'),
+                             final('Đã đọc cả hai. https://stspg.io/pjgptg3cfc6n')])
+        result = run_agent('x', fake, StatusTools(), max_steps=6)
+        self.assertEqual(result['status'], 'completed')
+        gates = [x for x in result['trace'] if x['event'] == 'validation_unfollowed_reference']
+        self.assertEqual(gates[0]['pending'], ['github:xr3myzj7ms51'])
+        self.assertEqual(len({x['step'] for x in result['trace'] if x['event'] == 'tool'}), 2)
+    def test_gate_asks_only_once(self):
+        fake = FakeProvider([tool_call('1', 'get_incident_details', '{"provider":"github","incident_id":"h02n9572mx9y"}'),
+                             final('Không theo liên kết.'), final('Vẫn không theo. https://stspg.io/7pwv28hvkmz8')])
+        self.assertEqual(run_agent('x', fake, StatusTools(), max_steps=6)['status'], 'completed')
+
 if __name__ == '__main__':
     unittest.main()
