@@ -93,7 +93,9 @@ def run_agent(question, provider, tools, max_steps=6):
     # Trả completed, max_steps hoặc error cùng answer, trace và usage.
     # Bonus tools mang schemas/prompt riêng; tools bài chính dùng mặc định.
     
+    # Bonus tools có thể override schemas, nhưng nếu không thì dùng SCHEMAS mặc định.
     schemas = getattr(tools, 'schemas', SCHEMAS)
+
     messages = [{'role': 'system', 'content': getattr(tools, 'system_prompt', SYSTEM_PROMPT)}, {'role': 'user', 'content': question}]
     trace, usage, sources, answer = [], [], set(), ''
     read, linked, asked = set(), set(), set()  # (provider, incident_id) for the follow-up gate

@@ -33,7 +33,7 @@ Nguyên nhân chắc rằng model đọc được nhưng chỉ lo trả về gi�
 | Điểm tổng | 91.27/100 | 91.05 | 
 | Điểm case đã chọn | 60 | 85 |
 | Số model calls | 2 | 2 |
-| Token, chi phí nếu có | model token use: 342; Judge token use: 3272 |  |
+| Token, chi phí nếu có | model token use sau 3 loop: 6020; Judge token use: 3272 | Model token sau 3 loop: 9613; Judge token: 3520  |
 
 - Lỗi đã giải quyết: Agent giờ check kĩ hơn về incident và đưa lại thông tin đã được kiểm chứng
 - Lỗi còn lại hoặc mới xuất hiện: H2 94 -> 50 Không gọi check status AI kiểm rồi thấy incident resolve rồi nên skip không check nũa không gọi tool check có thể tại phần mình code thêm trong agent.py dù mình ko kêu nó skip resolve
@@ -43,5 +43,5 @@ Nguyên nhân chắc rằng model đọc được nhưng chỉ lo trả về gi�
 Nêu giới hạn của điểm judge, của snapshot và của việc chỉ chạy một lần mỗi phiên bản.
 - Ở phiên bản đầu lần chạy judge đầu mình xài model của judge giống với model của mình là `gpt-40-mini` thì lần đầu judge trả sai fomat nên gây lỗi ở test case H8 không trả điểm được. Retest lại lần sau thì trả điểm được và điểm mỗi lần mỗi khác ở vài case
 - Phải với model nhỏ hay local phải giới hạn prompt và truyền tải đủ nội dung với yêu cầu 
-- Model trả lời quá dài tốn token, judge model mình xài loại mạnh hơn để đánh giá và cho giải pháp ngốn x10 token làm cost tăng
+- Prompt model dài làm tốn nhiều token và cached token sau mỗi vòng loop
 - Sữa prompt không đủ phải thêm guardrail thực tế trong code để agent không bỏ qua chỉ dẫn
