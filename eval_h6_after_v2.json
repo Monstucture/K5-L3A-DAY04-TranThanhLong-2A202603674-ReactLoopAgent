@@ -1,0 +1,450 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 80.0,
+    "partial_mean_0_100": null
+  },
+  "config": {
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "judge_provider": "openai",
+    "judge_model": "gpt-4o-mini",
+    "max_steps": 6,
+    "dataset": "core"
+  },
+  "cases": [
+    {
+      "id": "H6",
+      "question": "Xem status GitHub Actions, tìm incident h02n9572mx9y và theo liên kết của nó. Incident gộp có nêu nguyên nhân hay chỉ mô tả ảnh hưởng? Nêu giới hạn dữ liệu và trích nguồn.",
+      "expected": "Không bị nhiễu bởi nhiều mục không liên quan; status Actions operational, đọc h02n9572mx9y rồi xr3myzj7ms51; chỉ rõ nguyên nhân có trong phần trả về, và nội dung có thể bị cắt; trích nguồn.",
+      "scenario": "noisy_status",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "judge_provider": "openai",
+      "judge_model": "gpt-4o-mini",
+      "result": {
+        "status": "completed",
+        "answer": "**Kết luận:**\n- Actions: operational tại 2026-11-09T03:50:47Z.\n- Incident h02n9572mx9y (có incident liên quan): chỉ mô tả ảnh hưởng, không nêu nguyên nhân.\n- Incident gộp xr3myzj7ms51: có nêu nguyên nhân là \"một thay đổi cấu hình nội bộ gây ra việc tạm dừng không mong muốn\".\n\n**Bằng chứng:**\n- h02n9572mx9y: trạng thái resolved, cập nhật cuối lúc 2026-11-07T01:10:18Z, phạm vi: Actions. Câu tóm tắt: \"We are investigating reports of degraded availability for Actions\". [URL nguồn](https://stspg.io/7pwv28hvkmz8).\n- xr3myzj7ms51: trạng thái resolved, cập nhật cuối lúc 2026-11-07T01:04:38Z, phạm vi: Actions, Pages. Câu tóm tắt: \"Incident was caused by a configuration change to an internal event-routing service...\" (nội dung bị cắt). [URL nguồn](https://stspg.io/pjgptg3cfc6n).\n\n**Giới hạn:** chỉ tìm theo chuỗi trong 50 incident gần nhất, không tìm thấy không chứng minh không có sự cố. \n- h02n9572mx9y đã xem 3/4 updates, xr3myzj7ms51 đã xem 4/9 updates và update mới nhất bị cắt (truncated).",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 2
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_status",
+            "arguments": {
+              "provider": "github",
+              "component": "Actions"
+            },
+            "result": {
+              "provider": "github",
+              "captured_at": "2026-11-09T03:50:47.065020+00:00",
+              "overall": {
+                "indicator": "none",
+                "description": "All Systems Operational"
+              },
+              "components": [
+                {
+                  "name": "Actions",
+                  "status": "operational"
+                }
+              ],
+              "incidents": [
+                {
+                  "id": "pfbmpxxfq1cy",
+                  "name": "Degraded performance for multiple GitHub services",
+                  "status": "resolved",
+                  "updated_at": "2026-11-06T00:20:49.369Z"
+                },
+                {
+                  "id": "t89g2q1800fr",
+                  "name": "Incident with Actions",
+                  "status": "resolved",
+                  "updated_at": "2026-11-05T17:42:35.455Z"
+                },
+                {
+                  "id": "h02n9572mx9y",
+                  "name": "Incident with Actions",
+                  "status": "resolved",
+                  "updated_at": "2026-11-07T01:10:18.506Z"
+                },
+                {
+                  "id": "xr3myzj7ms51",
+                  "name": "Incident with Actions and Pages",
+                  "status": "resolved",
+                  "updated_at": "2026-11-07T01:04:38.647Z"
+                },
+                {
+                  "id": "smtdswd1h2w4",
+                  "name": "Incident with Pull Requests, Git Operations and Issues",
+                  "status": "resolved",
+                  "updated_at": "2026-11-04T11:50:06.459Z"
+                }
+              ],
+              "matching_incidents_in_last_50": 23,
+              "note": "Chỉ tìm theo chuỗi trong 50 incident gần nhất; không tìm thấy không chứng minh không có sự cố.",
+              "source": "https://www.githubstatus.com",
+              "context_note": "Dữ liệu nhiễu giả lập, không phải thông tin incident.",
+              "distractors": [
+                {
+                  "name": "Unrelated archive entry 0",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 1",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 2",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 3",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 4",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 5",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 6",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 7",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 8",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 9",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 10",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 11",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 12",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 13",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 14",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 15",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 16",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 17",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 18",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 19",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 20",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 21",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 22",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 23",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 24",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 25",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 26",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 27",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 28",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 29",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 30",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 31",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 32",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 33",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 34",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 35",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 36",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 37",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 38",
+                  "detail": "Informational record unrelated to Actions and the question."
+                },
+                {
+                  "name": "Unrelated archive entry 39",
+                  "detail": "Informational record unrelated to Actions and the question."
+                }
+              ]
+            }
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "provider": "github",
+              "incident_id": "h02n9572mx9y"
+            },
+            "result": {
+              "ok": true,
+              "provider": "github",
+              "captured_at": "2026-11-09T03:50:47.065020+00:00",
+              "id": "h02n9572mx9y",
+              "name": "Incident with Actions",
+              "status": "resolved",
+              "created_at": "2026-11-04T17:40:33.675Z",
+              "updated_at": "2026-11-07T01:10:18.506Z",
+              "components": [
+                "Actions"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-11-04T18:16:08.361Z",
+                  "body": "Please refer to the combined summary in this related incident: https://www.githubstatus.com/incidents/xr3myzj7ms51",
+                  "truncated": false
+                },
+                {
+                  "status": "monitoring",
+                  "created_at": "2026-11-04T18:07:51.114Z",
+                  "body": "The degradation affecting Actions has been mitigated. We are monitoring to ensure stability.",
+                  "truncated": false
+                },
+                {
+                  "status": "investigating",
+                  "created_at": "2026-11-04T17:40:33.887Z",
+                  "body": "We are investigating reports of degraded availability for Actions",
+                  "truncated": false
+                }
+              ],
+              "updates_total": 4,
+              "url": "https://stspg.io/7pwv28hvkmz8"
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 2,
+            "name": "get_incident_details",
+            "arguments": {
+              "provider": "github",
+              "incident_id": "xr3myzj7ms51"
+            },
+            "result": {
+              "ok": true,
+              "provider": "github",
+              "captured_at": "2026-11-09T03:50:47.065020+00:00",
+              "id": "xr3myzj7ms51",
+              "name": "Incident with Actions and Pages",
+              "status": "resolved",
+              "created_at": "2026-11-04T16:05:31.580Z",
+              "updated_at": "2026-11-07T01:04:38.647Z",
+              "components": [
+                "Webhooks",
+                "Actions",
+                "Pages"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-11-04T17:01:11.503Z",
+                  "body": "On November 4, 2026, between 15:49 UTC and 16:48 UTC, and again between 17:20 UTC and 17:55 UTC, GitHub Actions, Pages, Webhooks, Code Scanning, and Copilot coding agent experienced delays. During this time, Actions workflow runs and job status updates were delayed by up to 25 minutes. Pages deployments dropped to about 4% of normal volume, webhook deliveries dropped to about 58% of normal volume, and Code Scanning analyses and Copilot coding agent sessions were delayed. Delayed events were processed after mitigation. <br /><br />This incident was caused by a configuration change to an internal event-routing service that unexpectedly paused delivery of several event streams. The change depended on feature flags that were not set up as intended, which the service did not handle gracefully. We mitigated the first period by rolling back the configuration change at 16:14 UTC. The code change",
+                  "truncated": true
+                },
+                {
+                  "status": "monitoring",
+                  "created_at": "2026-11-04T16:49:27.384Z",
+                  "body": "The degradation has been mitigated. We are monitoring to ensure stability.",
+                  "truncated": false
+                },
+                {
+                  "status": "investigating",
+                  "created_at": "2026-11-04T16:05:31.696Z",
+                  "body": "We are investigating reports of degraded performance for Actions and Pages",
+                  "truncated": false
+                }
+              ],
+              "updates_total": 9,
+              "url": "https://stspg.io/pjgptg3cfc6n"
+            }
+          },
+          {
+            "event": "model",
+            "step": 3,
+            "finish": "stop",
+            "tool_calls": 0
+          },
+          {
+            "event": "final",
+            "step": 3
+          }
+        ],
+        "usage": [
+          {
+            "prompt_tokens": 1672,
+            "completion_tokens": 62,
+            "total_tokens": 1734,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          {
+            "prompt_tokens": 3495,
+            "completion_tokens": 27,
+            "total_tokens": 3522,
+            "prompt_tokens_details": {
+              "cached_tokens": 1664,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          {
+            "prompt_tokens": 4019,
+            "completion_tokens": 338,
+            "total_tokens": 4357,
+            "prompt_tokens_details": {
+              "cached_tokens": 3456,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        ]
+      },
+      "grade": {
+        "score": 80,
+        "raw_judge_score": 80,
+        "dimensions": {
+          "factuality": 35,
+          "completeness": 20,
+          "evidence": 15,
+          "boundaries": 10
+        },
+        "status": "scored",
+        "reason": "Câu trả lời nêu rõ tình trạng của Actions và các sự cố liên quan, nhưng có sự mâu thuẫn về việc mô tả nguyên nhân không chính xác. Đã trích dẫn nguồn nhưng thiếu một số thông tin về giới hạn lỗi và thời gian truy vấn.",
+        "improvement": "Cần xác nhận lại thông tin về nguyên nhân của incident h02n9572mx9y và cung cấp thêm dữ liệu về giới hạn truy vấn.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 3,
+          "tool_steps": 2
+        },
+        "judge_usage": {
+          "prompt_tokens": 3383,
+          "completion_tokens": 137,
+          "total_tokens": 3520,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}
